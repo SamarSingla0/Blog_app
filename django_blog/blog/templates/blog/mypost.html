@@ -1,0 +1,194 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+
+/* GLOBAL DARK BACKGROUND */
+body, html {
+    background-color: #121212 !important;
+    margin: 0;
+    padding: 0;
+    color: #e5e5e5 !important;
+}
+
+/* MAIN CONTAINER */
+.custom-container {
+    background-color: #121212 !important;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #1e1e1e !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.navbar-light .navbar-toggler-icon {
+    filter: invert(100%);
+}
+
+/* Move profile to right */
+.navbar .form-inline {
+    margin-left: auto !important;
+}
+
+/* PROFILE BUTTON */
+.btn-outline-primary {
+    border: 1px solid #555 !important;
+    background-color: #272727 !important;
+    color: #e5e5e5 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #333 !important;
+    color: white !important;
+    border-color: #777 !important;
+}
+
+/* DROPDOWN */
+.dropdown-menu {
+    min-width: 120px !important;
+    padding: 5px 0 !important;
+
+    /* preserve your dark theme */
+    background-color: #1e1e1e !important;
+    border: 1px solid #444 !important;
+}
+
+/* Smaller dropdown items — theme preserved */
+.dropdown-item {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+
+    /* preserve text + hover colors */
+    color: #e5e5e5 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #333 !important;
+}
+
+/* HEADINGS */
+h1, h2, h3, h5 {
+    color: #ffffff !important;
+}
+
+/* POST CARD */
+.content-section {
+    background-color: #1b1b1b !important;
+    border: 1px solid #333 !important;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: 0.25s;
+}
+
+.content-section:hover {
+    transform: translateY(-3px);
+    background-color: #222 !important;
+    border-color: #555 !important;
+}
+
+/* AUTHOR + DATE */
+.article-metadata h2 {
+    color: #ffdd88 !important; /* mild gold */
+    margin: 0;
+}
+
+.article-metadata h5 {
+    color: #d1d1d1 !important;
+    margin: 0;
+}
+
+/* POST CONTENT */
+p.article-content {
+    color: #e1e1e1 !important;
+    font-size: 1.07rem;
+    line-height: 1.6;
+}
+
+/* TITLES */
+.media-body h3 {
+    color: #f5f5f5 !important;
+}
+
+/* DIVIDER */
+hr {
+    border-color: #333 !important;
+}
+
+</style>
+
+
+
+<div class="container custom-container">
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto">
+                <li>
+                    <a href="/home">
+                        <img class="w-50" src="{% static 'image/pho.png' %}" alt="">
+                    </a>
+                </li>
+            </ul>
+
+            <form class="form-inline my-2 my-lg-0">
+                <div class="dropdown">
+                    <button class="btn btn-outline-primary dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        Profile
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/newpost">New Post</a>
+                        <a class="dropdown-item" href="/mypost">My Posts</a>
+                        <a class="dropdown-item" href="/signout">Sign Out</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </nav>
+
+    <br><br>
+
+    <div class="container custom-container" style="max-width: 1350px;">
+        <h1 class="fw-bold">My Posts</h1>
+        <br>
+
+        {% for post in posts %}
+        <article class="media content-section">
+
+            <div class="media-body">
+
+                <div class="article-metadata">
+                    <h2 class="text-uppercase" style="float:left;">{{ post.author }}</h2>
+                    <h5 style="float:right;">{{ post.date_posted|date:"F d, Y" }}</h5>
+                    <hr style="clear:both;" />
+                </div>
+
+                <h3>{{ post.title }}</h3>
+                <p class="article-content">{{ post.content }}</p>
+                <br>
+
+            </div>
+
+        </article>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
