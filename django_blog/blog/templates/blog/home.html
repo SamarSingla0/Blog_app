@@ -1,0 +1,162 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+/* Full dark background */
+body, html {
+    background-color: #121212 !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main wrapper */
+.custom-container {
+    background-color: #121212;
+    min-height: 100vh;
+    padding: 30px 0;
+    color: #e5e5e5;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #1e1e1e !important;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+/* Ensure items spread naturally */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Push profile button to right */
+.ml-auto {
+    margin-left: auto !important;
+}
+
+/* Navbar toggler icon for dark mode */
+.navbar-light .navbar-toggler-icon {
+    filter: invert(100%);
+}
+
+/* Profile Button */
+.btn-profile {
+    background-color: #272727 !important;
+    border: 1px solid #444 !important;
+    color: #f1f1f1 !important;
+}
+.btn-profile:hover {
+    background-color: #333 !important;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background-color: #1e1e1e !important;
+    border: 1px solid #444 !important;
+}
+.dropdown-item {
+    color: #e5e5e5 !important;
+}
+.dropdown-item:hover {
+    background-color: #333 !important;
+}
+
+/* Post card */
+.media-body {
+    background-color: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: 0.3s ease;
+}
+.media-body:hover {
+    border-color: #555;
+    transform: translateY(-3px);
+}
+
+.article-metadata h1 {
+    color: #ffdd88 !important;
+    font-size: 24px;
+}
+.article-metadata h5 {
+    color: #bbbbbb;
+}
+
+h3 {
+    color: #fff;
+    font-weight: 600;
+}
+.article-content {
+    color: #d8d8d8;
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.media-body hr {
+    border-color: #444;
+}
+</style>
+
+
+<div class="container custom-container">
+
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- LEFT SIDE -->
+            <ul class="navbar-nav">
+                <li>
+                    <a href="/home">
+                        <img class="w-50" src="{% static 'image/pho.png' %}" alt="">
+                    </a>
+                </li>
+            </ul>
+
+            <!-- RIGHT SIDE -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <button class="btn btn-profile dropdown-toggle" data-toggle="dropdown">
+                        Profile
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="/newpost">New Post</a>
+                        <a class="dropdown-item" href="/mypost">My Posts</a>
+                        <a class="dropdown-item" href="/signout">Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+
+    <br><br>
+
+    <div class="container" style="max-width: 1350px;">
+        {% for post in posts %}
+            <article class="media content-section">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <h1 class="text-uppercase" style="float:left;">{{ post.author }}</h1>
+                        <h5 style="float:right;">{{ post.date_posted|date:"F d, Y" }}</h5>
+                        <hr style="clear:both;" />
+                    </div>
+
+                    <h3>{{ post.title }}</h3>
+                    <p class="article-content">{{ post.content }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
